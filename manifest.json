@@ -1,0 +1,13 @@
+{
+
+    "manifest_version": 3, 
+    "name": "daily jelly",
+    "version": "0.1", 
+    "author": "salvinax",
+    "description": "A jellycat a day to keep the bad thoughts away", 
+    "action": {
+        "default_title": "daily jelly",
+        "default_popup": "homepage.html"
+    }
+
+}
