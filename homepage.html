@@ -5,31 +5,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jelly daily</title>
-    <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id='home'>
     <div class="bigcontainer"> 
         <div class="highcontainer">
             <div class="toprightcontainer">
-            <a href="collection.html"><img class= "toprightimg" src="data/star.png" alt="home icon"></a>
+            <a href="collection.html"><img class= "toprightimg" src="images/star.png" alt="home icon"></a>
+            </div>
         </div>
-        </div>
+
+        <!-- Jellycat profile that changes every day  -->
         <div class="squarecontainer">
-            <div id="pluscontainer">
-                <img id = 'plusimg' src="data/plus%20sign.png" alt="plus sign">
-                <a href="https://www.jellycat.com/us/dory-duck-dor2dk/" target="_blank"><img id = 'plusimg' src="data/link.png" alt="link sign"></a>
+            <!-- <div id="pluscontainer">
+             <img id = 'plusimg' src="images/plus%20sign.png" alt="plus sign">
+                <a id="jellylink" href="https://www.jellycat.com/us/bartholomew-bear-barm3br/" target="_blank"><img id = 'plusimg' src="images/link.png" alt="link sign"></a>
             </div>
             <div class="mainitemcontainer">
-                  <img class="itemimg1" src="https://www.jellycat.com/images/products/medium/DOR2DK.jpg
-                        " alt="it's a duck">
-                    <p class="textitem"> Dory Duck</p>
-                    <p class="italics"> What's all the fuzz about? </p>
-            </div>
-                
+                  <img id="jellyimg" class="itemimg1" src="https://www.jellycat.com/images/products/medium/BARM3BR.jpg">
+                    <p id="jellyname" class="textitem">Bartholomew Bear</p>
+                    <p id="jellydesc" class="italics">Such a tubby teddy bear. </p>
+            </div> -->
         </div>
+
         <div class="lowcontainer">
         </div>
     </div>
+
+    <script type="module" src="actions/homepage.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,146 @@
+[
+    {
+        "name": "Bartholomew Bear",
+        "description": "Such a tubby teddy bear.",
+        "img_link": "https://www.jellycat.com/images/products/medium/BARM3BR.jpg",
+        "product_links": "https://www.jellycat.com/us/bartholomew-bear-barm3br/"
+    },
+    {
+        "name": "Love-Me Lobster",
+        "description": "Everybody say lobster!",
+        "img_link": "https://www.jellycat.com/images/products/medium/LOV3ML.jpg",
+        "product_links": "https://www.jellycat.com/us/loveme-lobster-lov3ml/"
+    },
+    {
+        "name": "Alice Axolotl",
+        "description": "Alice in Wanderland!",
+        "img_link": "https://www.jellycat.com/images/products/medium/AL3AX.jpg",
+        "product_links": "https://www.jellycat.com/us/alice-axolotl-al3ax/"
+    },
+    {
+        "name": "Finnegan Frog",
+        "description": "Bringing a splash of colour!",
+        "img_link": "https://www.jellycat.com/images/products/medium/FIN3FR.jpg",
+        "product_links": "https://www.jellycat.com/us/finnegan-frog-fin3fr/"
+    },
+    {
+        "name": "Amuseable Red Heart",
+        "description": "This heart goes boom-boom-boom!",
+        "img_link": "https://www.jellycat.com/images/products/medium/A6RH.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-red-heart-a6rh/"
+    },
+    {
+        "name": "Amuseable Moon",
+        "description": "Look out for leaping cows!",
+        "img_link": "https://www.jellycat.com/images/products/medium/A2MOON.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-moon-a2moon/"
+    },
+    {
+        "name": "Amuseable Coffee-To-Go",
+        "description": "Wake up and snuggle the coffee!",
+        "img_link": "https://www.jellycat.com/images/products/medium/A6COF.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-coffeetogo-a6cof/"
+    },
+    {
+        "name": "Amuseable Pain Au Chocolat",
+        "description": "Scrumptiously silly!",
+        "img_link": "https://www.jellycat.com/images/products/medium/A6PACHOC.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-pain-au-chocolat-a6pachoc/"
+    },
+    {
+        "name": "Cecile Chicken",
+        "description": "Chick out Cecile!",
+        "img_link": "https://www.jellycat.com/images/products/medium/CEC3C.jpg",
+        "product_links": "https://www.jellycat.com/us/cecile-chicken-cec3c/"
+    },
+    {
+        "name": "Cluny Cockerel",
+        "description": "Crowing from the rooftops!",
+        "img_link": "https://www.jellycat.com/images/products/medium/CLU3C.jpg",
+        "product_links": "https://www.jellycat.com/us/cluny-cockerel-clu3c/"
+    },
+    {
+        "name": "Bashful Sunshine Bunny",
+        "description": "Bunny with no chance of rain!",
+        "img_link": "https://www.jellycat.com/images/products/medium/BAS3BSU.jpg",
+        "product_links": "https://www.jellycat.com/us/bashful-sunshine-bunny-bas3bsu/"
+    },
+    {
+        "name": "Bashful Hot Pink Bunny",
+        "description": "Super-bright boings!",
+        "img_link": "https://www.jellycat.com/images/products/medium/BAS3BHP.jpg",
+        "product_links": "https://www.jellycat.com/us/bashful-hot-pink-bunny-bas3bhp/"
+    },
+    {
+        "name": "Bashful Tangerine Bunny",
+        "description": "Best freshly squeezed!",
+        "img_link": "https://www.jellycat.com/images/products/medium/BAS3BTA.jpg",
+        "product_links": "https://www.jellycat.com/us/bashful-tangerine-bunny-bas3bta/"
+    },
+    {
+        "name": "Bashful Apple Bunny",
+        "description": "Hopping through the orchard!",
+        "img_link": "https://www.jellycat.com/images/products/medium/BAS3BAP.jpg",
+        "product_links": "https://www.jellycat.com/us/bashful-apple-bunny-bas3bap/"
+    },
+    {
+        "name": "Amuseable Sun",
+        "description": "On a break from lighting up the sky!",
+        "img_link": "https://www.jellycat.com/images/products/medium/A2SUN.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-sun-a2sun/"
+    },
+    {
+        "name": "Amuseable Croissant",
+        "description": "A beautiful baked buddy.",
+        "img_link": "https://www.jellycat.com/images/products/medium/A2CRO.jpg",
+        "product_links": "https://www.jellycat.com/us/amuseable-croissant-a2cro/"
+    },
+    {
+        "name": "Peanut Penguin",
+        "description": "Waddle this way!",
+        "img_link": "https://www.jellycat.com/images/products/medium/PNM3PN.jpg",
+        "product_links": "https://www.jellycat.com/us/peanut-penguin-medium-pnm3pn/"
+    },
+    {
+        "name": "Yummy Duckling",
+        "description": "Pitter-patter, pitter-patter, splash!",
+        "img_link": "https://www.jellycat.com/images/products/medium/YUM6DK.jpg",
+        "product_links": "https://www.jellycat.com/us/yummy-duckling-yum6dk/"
+    },
+    {
+        "name": "Little Fox",
+        "description": "Diddy but daring!",
+        "img_link": "https://www.jellycat.com/images/products/medium/L3F.jpg",
+        "product_links": "https://www.jellycat.com/us/little-fox-l3f/"
+    },
+    {
+        "name": "Little Pup",
+        "description": "A ruffly rascal with a huge heart.",
+        "img_link": "https://www.jellycat.com/images/products/medium/L3PU.jpg",
+        "product_links": "https://www.jellycat.com/us/little-pup-l3pu/"
+    },
+    {
+        "name": "Fabulous Fruit Strawberry",
+        "description": "All the strawberry feels forever!",
+        "img_link": "https://www.jellycat.com/images/products/medium/FABF6S.jpg",
+        "product_links": "https://www.jellycat.com/us/fabulous-fruit-strawberry-fabf6s/"
+    },
+    {
+        "name": "Bashful Pink Bunny",
+        "description": "A raspberry cream bunny with a super cuddly tummy!",
+        "img_link": "https://www.jellycat.com/images/products/medium/PERSBAS4BP.jpg",
+        "product_links": "https://www.jellycat.com/us/personalised-bashful-pink-bunny-medium-persbas4bp/"
+    },
+    {
+        "name": "Little Bear",
+        "description": "The tinyest teddy bear.",
+        "img_link": "https://www.jellycat.com/images/products/medium/L3BE.jpg",
+        "product_links": "https://www.jellycat.com/us/little-bear-l3be/"
+    },
+    {
+        "name": "Fabulous Fruit Banana",
+        "description": "No banana-drama!",
+        "img_link": "https://www.jellycat.com/images/products/medium/FABF6B.jpg",
+        "product_links": "https://www.jellycat.com/us/fabulous-fruit-banana-fabf6b/"
+    }
+]
