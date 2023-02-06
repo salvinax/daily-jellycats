@@ -11,7 +11,7 @@
             const one_transaction= db.transaction('collection', 'readonly');
             const objectStor = one_transaction.objectStore('collection');
 
-            objectStor.openCursor().onsuccess = function(event) {
+            objectStor.index('order').openCursor(null, 'prev').onsuccess = function(event) {
                 const cursor = event.target.result;
                 if (cursor) {
                     linktoimage = cursor.value.img_link;

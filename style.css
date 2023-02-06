@@ -13,6 +13,8 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+
 .highcontainer {
     position: absolute;
     top: 0;
@@ -205,22 +207,69 @@ body {
     transition: opacity 0.8s;
 }
 
+.alert1 {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    margin: 0px;
+
+    opacity: 1;
+    animation: fade 2s linear forwards;
+}
+
+@keyframes fade {
+    0%, 100% {opacity: 0;}
+    30%    {opacity: 1;}
+}
+
+.hiddenitalics{
+    text-align: center;
+    font-style: italic;
+    font-size: 9px;
+    font-weight: 550;
+    margin: 0px;
+    transition: ease-out 0.8s;
+    margin-top: 5 px;
+    opacity: 0;
+}
+
 .italics{
     text-align: center;
     font-style: italic;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 9px;
+    font-weight: 550;
     margin: 0px;
     transition: ease-out 0.8s;
 }
 
 .textitem{
+    
     text-align: center;
     font-size: 10px;
     font-weight: 500;
-    margin: 0px;
+    margin: 2px;
     transition: ease-out 0.8s;
    
 }
 
 
+.title2 {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.test{
+    position:absolute;
+    margin:0;
+    width: 50px;
+    height: 22px;
+}
+
+.testFont{
+    position:absolute;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+}

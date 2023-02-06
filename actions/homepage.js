@@ -2,6 +2,21 @@
 import data from '/sample.json' assert {type: 'json'};
 
 let db = null;
+
+//problem: when going to next page the embedded html does not save because it was dynamically injected SOLVED
+//solution: generate_new function runs every time homepage opens 
+
+//problem: timer is not running in background jellycat is not changing on homepage SOLVED
+//solution : instead of using setInterval just use timestamp in local storage and check if the time has passed yet! 
+
+//problem: collection is sorted by alphebetical order rather than last added 
+//solution: add a field in db with the date and time then order db 
+
+// dialog boxes are really ugly 
+// fix the font add a bit of space between text
+
+
+
   
 function open_database() {
     let dbShouldInit = false;
@@ -21,6 +36,7 @@ function open_database() {
         objectStore.createIndex('description', 'description', { unique: true });
         objectStore.createIndex('img_link', 'img_link', { unique: true});
         objectStore.createIndex('product_links', 'product_links', { unique: true });
+        objectStore.createIndex('order', 'order', {unique: true});
 
         objectStore.transaction.oncomplete = function(event) {
             console.log("object stored");
@@ -33,7 +49,7 @@ function open_database() {
         objectStore2.createIndex('img_link', 'img_link', { unique: true});
         objectStore2.createIndex('product_links', 'product_links', { unique: true });
 
-        objectStore2.transaction.oncomplete = function(event){
+        objectStore2.transaction.oncomplete = function(event) {
             console.log('database imported');
         }
 
@@ -42,7 +58,8 @@ function open_database() {
     request.onsuccess = function(event) {
         db = event.target.result;
         console.log("db opened");
-        resetAtMidnight();  //for testing purposes
+        add_profile();
+        checkIfMidnight();
         if (dbShouldInit) {
             insert_records(data);
             resetAtMidnight();
@@ -51,47 +68,36 @@ function open_database() {
 }
 
 
-
-function generate_new() {
+function add_profile() {
     const one_transaction= db.transaction('jellycatDB', 'readonly');
     const objectStor = one_transaction.objectStore('jellycatDB');
 
-    const countRequest = objectStor.count();
-
-    countRequest.onsuccess = function() {
-        var maxidx = countRequest.result; 
-    
-
-    //figure out how to randomize pls pls pls 
-    //add to timer 
-    //then basically done!!!!
-    var jump = getRandomInt(0, maxidx-1);
-    //console.log(jump);
+    const offsetList = localStorage.getItem('sortedList').split(',');
+    if (offsetList.length == 0) {
+        console.log('user went through whole database!!!!');
+    }
     var forward = false; 
     objectStor.openCursor().onsuccess = function(event) {
         const cursor = event.target.result;
-        if (!cursor){
+        if (!cursor) {
             console.log('null');
             return;
         }
 
         if (!forward) {
-            if (jump > 0) {
-                cursor.advance(jump);
-                console.log(jump);
-                console.log("we jumped");
-                forward = true;
-                return;
-            } else if (jump == 0) {
-                forward= true;
-                console.log('we didnt move');
-                return;
-            } else {
-                jump = getRandomInt(0, maxidx-1);
-                console.log('new rand generated');
-            }
-        }
+            var jump = offsetList[offsetList.length - 1];
+            console.log(jump);
+                if (jump > 0) {
+                    cursor.advance(jump);
+                    console.log("we jumped");
+                    forward = true;
 
+                } else {
+                    console.log('we didnt move');
+                    forward = true;
+
+                } 
+        }
         var names = cursor.value.name;
         var description = cursor.value.description;
         var linktoimage = cursor.value.img_link;
@@ -116,14 +122,12 @@ function generate_new() {
         //frame.querySelector('#plusimg').addEventListener('click', addjelly);
         }
       }
-    }  
 
     //add to database by clicking plus button in homepage  
-    function addjelly (event){
+    function addjelly (){
 
-        var addbutton = event.currentTarget;
+       // var addbutton = event.currentTarget;
         var name = document.getElementById('jellyname').textContent;
-        console.log(name);
 
         if (db) {
             const get_transaction = db.transaction('jellycatDB', 'readonly');
@@ -135,8 +139,8 @@ function generate_new() {
 
             get_transaction.onerror = function() {
                 console.log("get transactions error");
+                
             }
-
             let r = objectStor.get(name);
             r.onsuccess = function() {
                 const get_transaction2 = db.transaction('collection', 'readwrite');
@@ -148,12 +152,25 @@ function generate_new() {
         
                 get_transaction2.onerror = function(){
                     console.log("insertion error");
-                    //dialog it's already there
+                    alertUser('Already in collection!');
+                    
                 }
                 let req = objectstorr.add(r.result);
                 req.onsuccess = function() {
+                    const updateData = r.result;
+                    updateData.order = new Date();
+                    //const req1 = r.result.update(updateData);
+                    const req1 = objectstorr.put(updateData);
+                    req1.onsuccess = function(){
+                        console.log('updated');
+                    }
                     console.log("Added", req.result);
+                    alertUser('Added to collection!');
+                    //alert('added to collection!!!');
                 //dialog box added to your collection!
+             var text =  document.getElementsByClassName('textitem')[0];
+             text.innerText = 'Added to your collection!';
+             text.style.opacity = 1;
 
             }   
 
@@ -168,12 +185,36 @@ function generate_new() {
         }
     }
 
+    function alertUser(message) {
+        var nameContainer =  document.getElementsByClassName('textitem')[0];
+        var descContainer = document.getElementsByClassName('italics')[0];
+        descContainer.className = 'hiddenitalics';
+        var savedName = nameContainer.innerText;
+        nameContainer.innerText = message;
+        nameContainer.className = 'alert1';
 
-
-    function getRandomInt (min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        setTimeout(function() {
+        nameContainer.innerText = savedName;
+        nameContainer.className = 'textitem';
+        descContainer.className = 'italics';
+        }, 2100)
     }
 
+    function checkIfMidnight(){
+        let midnight = parseInt(localStorage.getItem('savedTimestamp'));
+
+        if (midnight != null ){
+            if (Date.now() >= midnight){
+                resetAtMidnight();
+            } 
+        } else {
+            console.log('Timer has restarted');
+            resetAtMidnight();
+        }
+    }
+
+  
+    //set a new time limit and we change database row 
     function resetAtMidnight() {
         var now = new Date(); //current date and time 
         var night = new Date(
@@ -184,13 +225,17 @@ function generate_new() {
             now.getMinutes() + 1  //currently set at every minute should be midnight
             ///0, 0, 0 // ...at 00:00:00 hours
         );
-        localStorage.setItem('savedTimestamp', parseInt(night.getTime()));
-        generate_new();
+        localStorage.setItem('savedTimestamp', night.getTime());
+
+        var list = localStorage.getItem('sortedList').split(',');
+        list.pop();
+        localStorage.setItem('sortedList', list);
+        add_profile();
     }
 
 
     function checkTimestamp() {
-        let midnight = localStorage.getItem('savedTimestamp')
+        let midnight = parseInt(localStorage.getItem('savedTimestamp'));
         if (midnight != null) {
             if (Date.now() >= midnight) {
                 resetAtMidnight();
@@ -225,10 +270,28 @@ function insert_records(records) {
             let request = objectStore.add(jellycat);
             request.onsuccess = function() {
                 
-        }
+            }
         console.log("Imported Database");
          });
+
+        let countRequest = objectStore.count();
+        countRequest.onsuccess = function() {
+           var maxidx = countRequest.result;
+           const list =  Array.from(Array(maxidx).keys());
+
+           for(var idx = 0; idx < list.length; idx++) {
+              var newidx = Math.floor(Math.random() * (list.length - idx)) + idx;
+              var tmp = list[idx];
+              list[idx] = list[newidx];
+              list[newidx] = tmp;
+           }
+           localStorage.setItem('sortedList', list);
+        }
     }
+}
+
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 
@@ -303,6 +366,6 @@ function delete_database(){
     }
 
 }
-
+//delete_database();
 open_database();
-setInterval(checkTimestamp, 30000);
+//setInterval(checkTimestamp, 30000);
