@@ -1,8 +1,6 @@
 // js for homepage.html
 import data from '/sample.json' assert {type: 'json'};
 
-let db = null;
-
 //problem: when going to next page the embedded html does not save because it was dynamically injected SOLVED
 //solution: generate_new function runs every time homepage opens 
 
@@ -15,12 +13,11 @@ let db = null;
 // dialog boxes are really ugly 
 // fix the font add a bit of space between text
 
-
-
+let db = null;
   
 function open_database() {
     let dbShouldInit = false;
-    const request = window.indexedDB.open('MyTestDB');
+    const request = window.indexedDB.open('jddatabase');
 
     request.onerror = function() {
         console.log("Problem opening database");
@@ -42,7 +39,7 @@ function open_database() {
             console.log("object stored");
         }
 
-        let objectStore2 = db.createObjectStore('jellycatDB', {keyPath: 'name'});
+        let objectStore2 = db.createObjectStore('jellycats', {keyPath: 'name'});
 
         objectStore2.createIndex('name', 'name', { unique: true });
         objectStore2.createIndex('description', 'description', { unique: true});
@@ -69,8 +66,8 @@ function open_database() {
 
 
 function add_profile() {
-    const one_transaction= db.transaction('jellycatDB', 'readonly');
-    const objectStor = one_transaction.objectStore('jellycatDB');
+    const one_transaction= db.transaction('jellycats', 'readonly');
+    const objectStor = one_transaction.objectStore('jellycats');
 
     const offsetList = localStorage.getItem('sortedList').split(',');
     if (offsetList.length == 0) {
@@ -130,8 +127,8 @@ function add_profile() {
         var name = document.getElementById('jellyname').textContent;
 
         if (db) {
-            const get_transaction = db.transaction('jellycatDB', 'readonly');
-            const objectStor = get_transaction.objectStore("jellycatDB");
+            const get_transaction = db.transaction('jellycats', 'readonly');
+            const objectStor = get_transaction.objectStore("jellycats");
 
             get_transaction.oncomplete = function() {
                 console.log("all get transactions completed");
@@ -167,10 +164,7 @@ function add_profile() {
                     console.log("Added", req.result);
                     alertUser('Added to collection!');
                     //alert('added to collection!!!');
-                //dialog box added to your collection!
-             var text =  document.getElementsByClassName('textitem')[0];
-             text.innerText = 'Added to your collection!';
-             text.style.opacity = 1;
+                //dialog box added to your collection
 
             }   
 
@@ -251,12 +245,10 @@ function add_profile() {
     
     
 
-
-
 function insert_records(records) {
     if (db) {
-        const insert_transaction = db.transaction('jellycatDB', 'readwrite');
-        const objectStore = insert_transaction.objectStore('jellycatDB');
+        const insert_transaction = db.transaction('jellycats', 'readwrite');
+        const objectStore = insert_transaction.objectStore('jellycats');
 
         insert_transaction.oncomplete = function(){
             console.log("all insert transactions completed");
@@ -355,7 +347,7 @@ function delete_record(name){
 }
 
 function delete_database(){
-    const request = window.indexedDB.deleteDatabase("MyTestDB");
+    const request = window.indexedDB.deleteDatabase("jddatabase");
 
     request.onerror = function(event){
         console.log("Problem deleting DB");
@@ -366,6 +358,7 @@ function delete_database(){
     }
 
 }
+
 //delete_database();
 open_database();
 //setInterval(checkTimestamp, 30000);
