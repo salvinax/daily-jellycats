@@ -3,12 +3,14 @@ import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import requests
 from bs4 import BeautifulSoup
 import json
 
 baseurl = 'https://www.jellycat.com'
 url = 'https://www.jellycat.com/us/all-soft-toys/'
+
 s = Service('C:/webdriver/chromedriver')
 
 headers = {
@@ -24,7 +26,7 @@ element = driver.find_element(By.TAG_NAME, 'body')
 for i in range(200):
     element.send_keys(Keys.PAGE_DOWN)
     time.sleep(0.1)
-
+    
 page_source = driver.page_source
 soup = BeautifulSoup(page_source, 'html.parser')
 
@@ -38,7 +40,6 @@ for item in products:
 
     hlink = item.find('a', href=True)
     product_links.append(baseurl + hlink['href'])
-
 
 product_name = []
 product_desc = []

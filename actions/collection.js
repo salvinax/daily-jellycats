@@ -21,39 +21,52 @@
                 var temp = 0;
                 var jump = false;
                 var normalLimit = 9;
+                var limit = 0; 
+
+                var upbutton = document.getElementsByClassName("upimg")[0];
+                if (page != 0){
+                    upbutton.style.opacity = 1
+                    upbutton.addEventListener('click', clickUp);
+                    upbutton.style.cursor = 'pointer';
+                } else {
+                    upbutton.style.opacity = 0
+                    upbutton.removeEventListener('click', clickUp);
+                    upbutton.style.cursor = 'auto';  
+                }
 
 
                 let request = objectStor.count();
 
-                request.onsuccess = function() {
-                    let totalnum = request.result;
-                    let productsinlastpage = totalnum % 9;
+                request.onsuccess = function() { 
+                    let totalnum = request.result; //total number of items in collection database
+                    let productsinlastpage = totalnum % 9; //find remainder
                     let numberOfpages = (totalnum - productsinlastpage)/9;
+                    var downbutton = document.getElementsByClassName("downimg")[0];
 
+                   
                     //check if it's last page
-                    if (totalnum < pageitems){
-                        event.preventDefault();
-                         console.log('last page');
-                        page--;
-                        pageitems = page*9;
+                    if (totalnum > pageitems + 9) {
+                        event.preventDefault();   
+                        downbutton.style.opacity = 1;
+                        downbutton.addEventListener('click', clickDown);
+                        downbutton.style.cursor = 'pointer';
                     }
 
                     if (page == numberOfpages) {
                         limit = productsinlastpage;
-                        console.log('last page');
-                        console.log(productsinlastpage);
+                        downbutton.style.opacity = 0;   
+                        downbutton.removeEventListener('click', clickDown);    
+                        downbutton.style.cursor = 'auto';                 
+                        //set item limit for last page
                     } else {
                         limit = normalLimit;
-                        console.log('not last page');
+                        // not the last page 
                     }
-                    //console.log(totalnum);
-                    //console.log(productsinlastpage);
-                    //console.log(numberOfpages);
+
 
                 objectStor.index('order').openCursor(null, 'prev').onerror = function(){
                     console.log('failure');
                 }
-
 
                 objectStor.index('order').openCursor(null, 'prev').onsuccess = function(e) {
                     var cursor = e.target.result;
@@ -63,21 +76,16 @@
                     }
 
                     if (!changePage) {
+                        
                       if (jump == false) {
                         if (pageitems > 0) {
                             cursor.advance(pageitems);
-                            console.log(cursor);
-                            console.log('#ofpage');
-                            console.log(pageitems);
                             jump = true;
                             return;
                         }
                     }
 
                         if (temp < limit) {
-                            console.log(temp);
-                            console.log("^^^temp");
-                            console.log(cursor.value.img_link);
                             linktoimage = cursor.value.img_link;
                             linktoshop = cursor.value.product_links;
                             var newjelly = document.createElement("div");
@@ -98,20 +106,18 @@
                         if (temp == limit - 1)
                         {
                             changePage = true;
-                            console.log('end of page');
-
+                            //end of page
                         } else {
                             temp++;
                             cursor.continue();
+                            //continue to print
                         }
 
                         }
                     }
                 };
             }
-            }
-
-
+        }
 
 
     function removejelly(event) {
@@ -138,13 +144,15 @@
             //if yes then delete it
                 request.onsuccess = function(){
                     delstore.delete(jlink);
+                    //now refresh page after delete
+                    window.location.reload();
                 }
         }
     }
 
     function clickUp() {
         if (page === 0){
-            console.log('dont do anything');
+            console.log('No action');
         } else {
             page--;
             document.getElementsByClassName('squarev2')[0].innerHTML = '';
@@ -159,11 +167,4 @@
         print_collection();
     }
 
-
-    function ready(){
-        document.getElementsByClassName('upimg')[0].addEventListener('click', clickUp);
-        document.getElementsByClassName("downimg")[0].addEventListener('click', clickDown);
-    }
-
-    ready();
     print_collection();

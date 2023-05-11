@@ -1,17 +1,14 @@
 // js for homepage.html
-import data from '/sample.json' assert {type: 'json'};
+import data from '/database.json' assert {type: 'json'};
 
 //problem: when going to next page the embedded html does not save because it was dynamically injected SOLVED
 //solution: generate_new function runs every time homepage opens 
 
 //problem: timer is not running in background jellycat is not changing on homepage SOLVED
-//solution : instead of using setInterval just use timestamp in local storage and check if the time has passed yet! 
+//solution : instead of using setInterval just use timestamp in local storage and check if the time has passed yet
 
-//problem: collection is sorted by alphebetical order rather than last added 
+//problem: collection is sorted by alphebetical order rather than last added SOLVED
 //solution: add a field in db with the date and time then order db 
-
-// dialog boxes are really ugly 
-// fix the font add a bit of space between text
 
 let db = null;
   
@@ -26,25 +23,26 @@ function open_database() {
     request.onupgradeneeded = function(event) {
         db = event.target.result;
         dbShouldInit = true;
-        let objectStore = db.createObjectStore('collection', {keyPath: 'product_links'
+        let objectStore = db.createObjectStore('collection', {keyPath: 'img_link'
         });
-
-        objectStore.createIndex('name', 'name', { unique: true });
-        objectStore.createIndex('description', 'description', { unique: true });
+        
+        //database for user's collection
+        objectStore.createIndex('name', 'name', { unique: false });
+        objectStore.createIndex('description', 'description', { unique: false });
         objectStore.createIndex('img_link', 'img_link', { unique: true});
-        objectStore.createIndex('product_links', 'product_links', { unique: true });
+        objectStore.createIndex('product_links', 'product_links', { unique: false });
         objectStore.createIndex('order', 'order', {unique: true});
 
         objectStore.transaction.oncomplete = function(event) {
             console.log("object stored");
         }
 
-        let objectStore2 = db.createObjectStore('jellycats', {keyPath: 'name'});
-
-        objectStore2.createIndex('name', 'name', { unique: true });
-        objectStore2.createIndex('description', 'description', { unique: true});
+        let objectStore2 = db.createObjectStore('jellycats', {keyPath: 'img_link'});
+        //database for all items
+        objectStore2.createIndex('name', 'name', { unique: false });
+        objectStore2.createIndex('description', 'description', { unique: false});
         objectStore2.createIndex('img_link', 'img_link', { unique: true});
-        objectStore2.createIndex('product_links', 'product_links', { unique: true });
+        objectStore2.createIndex('product_links', 'product_links', { unique: false });
 
         objectStore2.transaction.oncomplete = function(event) {
             console.log('database imported');
@@ -59,6 +57,7 @@ function open_database() {
         checkIfMidnight();
         if (dbShouldInit) {
             insert_records(data);
+            console.log('heheheh');
             resetAtMidnight();
         }
     }
@@ -70,8 +69,9 @@ function add_profile() {
     const objectStor = one_transaction.objectStore('jellycats');
 
     const offsetList = localStorage.getItem('sortedList').split(',');
+
     if (offsetList.length == 0) {
-        console.log('user went through whole database!!!!');
+        console.log('User went through whole database.');
     }
     var forward = false; 
     objectStor.openCursor().onsuccess = function(event) {
@@ -86,13 +86,10 @@ function add_profile() {
             console.log(jump);
                 if (jump > 0) {
                     cursor.advance(jump);
-                    console.log("we jumped");
                     forward = true;
 
                 } else {
-                    console.log('we didnt move');
                     forward = true;
-
                 } 
         }
         var names = cursor.value.name;
@@ -113,7 +110,6 @@ function add_profile() {
         </div>
         `;
         
-        
         frame.innerHTML = item;
         document.getElementById('plusimg').addEventListener('click', addjelly);
         //frame.querySelector('#plusimg').addEventListener('click', addjelly);
@@ -124,7 +120,7 @@ function add_profile() {
     function addjelly (){
 
        // var addbutton = event.currentTarget;
-        var name = document.getElementById('jellyname').textContent;
+        var linktoimg = document.getElementById('jellyimg').src;
 
         if (db) {
             const get_transaction = db.transaction('jellycats', 'readonly');
@@ -138,7 +134,7 @@ function add_profile() {
                 console.log("get transactions error");
                 
             }
-            let r = objectStor.get(name);
+            let r = objectStor.get(linktoimg);
             r.onsuccess = function() {
                 const get_transaction2 = db.transaction('collection', 'readwrite');
                 const objectstorr = get_transaction2.objectStore('collection');
@@ -163,18 +159,10 @@ function add_profile() {
                     }
                     console.log("Added", req.result);
                     alertUser('Added to collection!');
-                    //alert('added to collection!!!');
-                //dialog box added to your collection
-
             }   
 
             }
 
-            // var name = document.getElementById('jellyname').textContent;
-            // var description = document.getElementById('jellydesc').textContent;
-            // var img_link = document.getElementById('jellyimg').src;
-            // var product_links = document.getElementById('jellylink').href;
-            // var obj = {name, description, img_link, product_links}; 
         
         }
     }
@@ -194,17 +182,14 @@ function add_profile() {
         }, 2100)
     }
 
-    function checkIfMidnight(){
+    function checkIfMidnight() {
         let midnight = parseInt(localStorage.getItem('savedTimestamp'));
 
-        if (midnight != null ){
+        if (midnight != null){
             if (Date.now() >= midnight){
                 resetAtMidnight();
             } 
-        } else {
-            console.log('Timer has restarted');
-            resetAtMidnight();
-        }
+        } 
     }
 
   
@@ -214,13 +199,11 @@ function add_profile() {
         var night = new Date(
             now.getFullYear(),
             now.getMonth(),
-            now.getDate(),
-            now.getHours(),
-            now.getMinutes() + 1  //currently set at every minute should be midnight
-            ///0, 0, 0 // ...at 00:00:00 hours
+            now.getDate() + 1, // next day
+            0, 0, 0 //at 00:00:00 hours
         );
-        localStorage.setItem('savedTimestamp', night.getTime());
 
+        localStorage.setItem('savedTimestamp', night.getTime());
         var list = localStorage.getItem('sortedList').split(',');
         list.pop();
         localStorage.setItem('sortedList', list);
@@ -341,7 +324,6 @@ function delete_record(name){
         }
 
         let request = objectStore.put(record);
-     
     }
 
 }
@@ -358,7 +340,4 @@ function delete_database(){
     }
 
 }
-
-//delete_database();
 open_database();
-//setInterval(checkTimestamp, 30000);
