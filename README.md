@@ -14,6 +14,7 @@ Chrome Extension that shows a new random Jellycat to users once a day. Users can
   <img width="361" alt="sc2" src="https://github.com/salvinax/daily-jellycats/assets/113158430/84ff8507-b70c-409d-b84c-a2403437f53c">
   
 </p>
+
 # to do
 - keep count of how many jellycat users has collected/show number of pages in collection
 - automate updating jellycat database regularly (certain jellycats become unavailable/out of stock on website)
