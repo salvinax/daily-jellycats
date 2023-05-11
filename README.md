@@ -8,14 +8,12 @@ Chrome Extension that shows a new random Jellycat to users once a day. Users can
 
 # screenshots
 <p align="center">
-  <img width="660" alt="sc6" src="https://github.com/salvinax/daily-jellycats/assets/113158430/ea179025-845a-47f4-a90f-41b03973676b">
-  <img width="361" alt="sc5" src="https://github.com/salvinax/daily-jellycats/assets/113158430/681fc630-5622-4ff4-bd3a-4fd8a0cdfe76"> 
-  <img width="361" alt="sc1" src="https://github.com/salvinax/daily-jellycats/assets/113158430/014bae06-b68d-4eea-85f2-a1f2b26f9d31">
-  <img width="361" alt="sc2" src="https://github.com/salvinax/daily-jellycats/assets/113158430/3e1e0a0c-ea58-4f21-a936-39d60e4436dc">
-  <img width="361" alt="sc3" src="https://github.com/salvinax/daily-jellycats/assets/113158430/ef15761a-085d-40d7-81dd-445d5c197ca7">
+  <img width="660" alt="sc7" src="https://github.com/salvinax/daily-jellycats/assets/113158430/efb99bd0-137b-4f30-ac02-ebcc0979a48e">
+  <img width="660" alt="sc8" src="https://github.com/salvinax/daily-jellycats/assets/113158430/fa4ede29-20df-42da-9752-02dae4dc06fa">
+  <img width="361" alt="sc5" src="https://github.com/salvinax/daily-jellycats/assets/113158430/8fa5aeb9-c9ca-4110-b861-ec0408cc1521">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img width="361" alt="sc2" src="https://github.com/salvinax/daily-jellycats/assets/113158430/84ff8507-b70c-409d-b84c-a2403437f53c">
   
- </p>
-
+</p>
 # to do
 - keep count of how many jellycat users has collected/show number of pages in collection
 - automate updating jellycat database regularly (certain jellycats become unavailable/out of stock on website)
